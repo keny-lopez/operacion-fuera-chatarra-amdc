@@ -2,6 +2,8 @@
 
 ### Una demo end-to-end para gestionar casos georreferenciados
 
+*44 comprobaciones de validación · 28 medidas · 1 tabla de hechos y 5 dimensiones · cerca de 50 campos de captura · 3 fotografías de evidencia*
+
 > **Demo independiente y no oficial.** El caso de uso se inspira en la Operación Fuera Chatarra de la Alcaldía Municipal del Distrito Central (AMDC). No fue desarrollado por encargo de la AMDC, no utiliza información interna de la institución y no pretende describir, sustituir ni evaluar sus sistemas. Todos los datos utilizados son de demostración.
 
 ![Portada del proyecto](assets/img/portada.png)
@@ -25,7 +27,7 @@
 
 ## El punto de partida
 
-Todo comenzó observando publicaciones sobre la Operación Fuera Chatarra de la AMDC y haciéndome una pregunta:
+Todo comenzó observando publicaciones públicas sobre la Operación Fuera Chatarra de la AMDC y haciéndome una pregunta:
 
 > **¿Cómo estarán registrando todo esto?**
 
@@ -65,6 +67,8 @@ La demo actual corresponde a una **Fase 1** y llega hasta la notificación. El s
 
 ![Arquitectura conceptual](assets/img/low_arquitectura_conceptual.jpg)
 
+*De la observación a la acción: cinco capacidades que no dependen del tipo de caso.*
+
 La solución puede resumirse en cinco capacidades:
 
 **OBSERVAR → CAPTURAR → TRANSFORMAR → ANALIZAR → ACTUAR**
@@ -83,13 +87,15 @@ Cambiarían las preguntas, las variables y las reglas.
 
 ![Arquitectura técnica](assets/img/low_arquitectura_tecnica.jpg)
 
+*Del instrumento de captura a los productos de consumo y sus usuarios.*
+
 La demo conecta distintas capacidades dentro de un mismo flujo:
 
 | Capa | Tecnologías y propósito |
 |---|---|
 | Captura | KoboToolbox, KoboCollect y ODK Collect para captura estructurada en campo |
 | Persistencia y acceso | KoboToolbox como origen de los registros y evidencia |
-| Integración y transformación | Power Query y un pipeline ETL reproducible desarrollado en Python |
+| Integración y transformación | Power Query y un pipeline ETL desarrollado en Python |
 | Modelado y analítica | Modelo dimensional y dashboard en Power BI |
 | Geoespacial | Google Earth, uMap, My Maps, QField y Mapas 3D de Excel |
 | Interoperabilidad | Salidas en formatos como CSV, XLSX, GeoJSON y KMZ |
@@ -101,6 +107,8 @@ La arquitectura fue diseñada para evitar que cada producto requiera una nueva c
 ## Captura en campo
 
 ![Formulario en KoboCollect](assets/img/formulario.png)
+
+*Formulario en KoboCollect, con rutas condicionadas, ubicación por GPS y evidencia fotográfica.*
 
 El instrumento desarrollado para la demo contiene **cerca de 50 campos y preguntas, incluyendo rutas condicionadas**.
 
@@ -127,6 +135,8 @@ Era **convertir preguntas en variables y variables en datos estructurados**.
 ## Modelo dimensional
 
 ![Modelo dimensional](assets/img/modelo_dimensional.png)
+
+*Una tabla de hechos y cinco dimensiones; fecha y personal pueden desempeñar más de un rol.*
 
 Para el análisis se construyó un modelo dimensional compuesto por una tabla de hechos y cinco dimensiones principales:
 
@@ -155,6 +165,8 @@ El objetivo del modelo no fue acumular métricas, sino convertir los datos captu
 
 ![Dashboard en Power BI](assets/img/dashboard.png)
 
+*Dashboard publicado en Power BI: indicadores, características de los vehículos, condición y evidencia.*
+
 El dashboard es **uno de los productos del sistema**, no el sistema completo.
 
 Permite explorar preguntas como:
@@ -180,11 +192,15 @@ Por eso la misma información se utilizó para producir diferentes formas de con
 
 ![uMap, QField y Google Earth](assets/img/mapas_composicion.png)
 
+*La misma fuente en uMap, QField y Google Earth.*
+
 <p>
   <img src="assets/img/google_earth_desktop.png" width="32%" alt="Google Earth Pro">
   <img src="assets/img/mapa_mymaps.png" width="32%" alt="Google My Maps">
   <img src="assets/img/mapa_powermap.png" width="32%" alt="Mapas 3D de Excel">
 </p>
+
+*Google Earth Pro, Google My Maps y Mapas 3D de Excel, a partir de los mismos datos.*
 
 | Producto | Uso |
 |---|---|
@@ -216,6 +232,18 @@ La validación también permitió identificar anomalías procedentes de la captu
 
 Los controles técnicos pueden detectar determinadas inconsistencias, pero la calidad final también depende del diseño del instrumento y de la calidad de la captura.
 
+### Documentación de respaldo
+
+La corrida queda respaldada por documentos que se mantienen fuera de este repositorio:
+
+| Documento | Qué registra |
+|---|---|
+| Acta de validación | Resultado formal de la corrida: comprobaciones ejecutadas, avisos y anomalías detectadas |
+| Manifiesto de ejecución | Huella de integridad de las salidas generadas, para comprobar que no cambiaron |
+| Cobertura de reglas | Qué reglas de negocio se ejercitaron en la corrida y cuáles no |
+| Validación de calidad | Detalle de cada comprobación y su resultado |
+| Runbook | Guía operativa y bitácora de decisiones y problemas encontrados |
+
 ---
 
 ## Innovación frugal
@@ -233,6 +261,16 @@ El proyecto es, en ese sentido, un ejercicio de **innovación frugal aplicada a 
 ---
 
 ## Alcance y límites
+
+### Lo que este proyecto demuestra
+
+- **Captura estructurada en campo**, con ubicación, evidencia fotográfica y operación sin conexión.
+- **Modelado dimensional** con roles de fecha y personal, controles de integridad y 28 medidas.
+- **Validación independiente** de las salidas, con resultados y anomalías documentados.
+- **Productos para distintos usuarios** a partir de una sola fuente: analítica, mapas y formatos abiertos.
+- **Una arquitectura reutilizable** para otros escenarios de trabajo territorial.
+
+### Lo que no pretende ser
 
 Esta demo demuestra la **viabilidad técnica y conceptual** de conectar captura estructurada en campo, georreferenciación, evidencia, transformación, modelado, analítica y productos geoespaciales.
 
@@ -306,11 +344,23 @@ Algunas fotografías utilizadas con fines demostrativos provienen de publicacion
 
 ---
 
+## Uso de IA
+
+Este proyecto se desarrolló en colaboración con **Claude (Anthropic)**.
+
+- **Delegación:** generación de código, documentación y propuestas de arquitectura.
+- **Decisiones:** alcance, diseño del caso y arquitectura final, del autor.
+- **Verificación:** los resultados se comprobaron con controles independientes, y los errores o suposiciones de la IA se corrigieron durante el desarrollo.
+
+---
+
 ## Autor
 
 **Keny López**  
 Data Analyst / BI Specialist  
-Microsoft Fabric Analytics Engineer (DP-700) · Power BI Data Analyst (PL-300)
+Microsoft Fabric Analytics Engineer (DP-700) · Power BI Data Analyst (PL-300)  
+DAX · Power Query · Modelado dimensional · Analítica geoespacial  
+Tegucigalpa, Honduras
 
 [LinkedIn](https://www.linkedin.com/in/kenylopez-data-analyst) · [Portafolio](https://sites.google.com/view/portafolio-keny-lpez/inicio)
 
