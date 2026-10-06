@@ -1,51 +1,100 @@
-# De una pregunta a una arquitectura de datos: una demo end-to-end para gestionar casos georreferenciados
+# De una pregunta a una arquitectura de datos
 
-> **Demo independiente y no oficial.** El caso de uso se inspira en la Operación Fuera Chatarra de la Alcaldía Municipal del Distrito Central (AMDC). No fue desarrollado por encargo de la AMDC, no utiliza información interna de la institución y no pretende describir, sustituir ni evaluar sus sistemas. Todos los datos son de prueba.
+### Una demo end-to-end para gestionar casos georreferenciados
+
+> **Demo independiente y no oficial.** El caso de uso se inspira en la Operación Fuera Chatarra de la Alcaldía Municipal del Distrito Central (AMDC). No fue desarrollado por encargo de la AMDC, no utiliza información interna de la institución y no pretende describir, sustituir ni evaluar sus sistemas. Todos los datos utilizados son de demostración.
 
 ![Portada del proyecto](assets/img/portada.png)
 
-**English summary.** An end-to-end demo of a georeferenced case-management workflow: structured field capture with GPS and photos (offline-first), a dimensional model and dashboard in Power BI, and map products for different users (Google Earth, uMap, My Maps, QField). Built with free tools and test data only. Independent portfolio project, not an official project of any institution.
+**English summary.** An independent end-to-end demo exploring how structured field capture, georeferenced evidence, data transformation, analytics and mapping can support the management of geographically distributed cases. The project uses abandoned vehicles as a case study, but the underlying architecture is designed to be transferable to other field-based operations.
 
 ---
 
 ## Explora la demo
 
-| Producto | Qué puedes hacer | Enlace |
+| Producto | Qué puedes explorar | Enlace |
 |---|---|---|
-| Dashboard en Power BI | Filtrar por fecha, colonia y categoría; explorar vehículos, condiciones de remoción y evidencia | [Abrir dashboard](https://app.powerbi.com/view?r=eyJrIjoiNTE2NjdjZDAtYmFmOC00MDc5LTk4NjgtM2VmMTYxNGJjZWQzIiwidCI6IjY4ODYzYjAyLTkxMDYtNDU2Yi1iYzFiLTEyNzRkMGZiZGJjYiIsImMiOjZ9) |
-| Mapa en Google Earth Web | Explorar los registros en su contexto territorial, con la ficha de cada caso | [Abrir mapa](https://earth.google.com/earth/d/1iwjQfTcOWLD_yuXroj5fZIQc-_-XBPuI?usp=sharing) |
-| Video del formulario | Ver el recorrido de un registro en KoboCollect | [Ver video](https://drive.google.com/file/d/1p0gcpqKXltXdgJiM3MM62O82WJ2KYA9p/view?usp=sharing) |
-| Artículo en LinkedIn | La historia del proyecto y sus aprendizajes | [Leer artículo](URL-DEL-ARTICULO) |
+| Dashboard en Power BI | Indicadores, distribución territorial, características de los vehículos, condiciones y evidencia | [Abrir dashboard](https://app.powerbi.com/view?r=eyJrIjoiNTE2NjdjZDAtYmFmOC00MDc5LTk4NjgtM2VmMTYxNGJjZWQzIiwidCI6IjY4ODYzYjAyLTkxMDYtNDU2Yi1iYzFiLTEyNzRkMGZiZGJjYiIsImMiOjZ9) |
+| Google Earth Web | Registros en su contexto territorial y ficha de cada caso | [Abrir mapa](https://earth.google.com/earth/d/1iwjQfTcOWLD_yuXroj5fZIQc-_-XBPuI?usp=sharing) |
+| Video del formulario | Recorrido de un registro mediante KoboCollect | [Ver video](https://drive.google.com/file/d/1p0gcpqKXltXdgJiM3MM62O82WJ2KYA9p/view?usp=sharing) |
+| Artículo en LinkedIn | Historia, decisiones y aprendizajes detrás del proyecto | [Leer artículo](https://www.linkedin.com/pulse/de-una-pregunta-arquitectura-datos-demo-end-to-end-para-keny-l%C3%B3pez-rzh1e/) |
 
-> El dashboard se publicó con una licencia de prueba de Power BI que ya venció, por lo que ese enlace podría dejar de estar disponible. Las capturas de este README muestran todo el proyecto.
-
----
-
-## El problema y la idea
-
-Todo empezó observando las publicaciones de la AMDC sobre la Operación Fuera Chatarra y haciéndome una pregunta: *¿cómo estarán registrando todo esto?* No conozco los sistemas internos de la institución; justamente por eso la pregunta me pareció un buen ejercicio.
-
-Convertí las preguntas en variables, las variables en un instrumento de captura y los datos estructurados en productos para distintos usuarios. La idea central es **capturar una vez y reutilizar muchas veces**: una coordenada registrada en campo no debería volver a digitarse para ponerla en un mapa, ni una fecha para controlar un plazo.
-
-Una distinción guió el diseño: **el vehículo es el objeto observado; el caso es el objeto gestionado.** Esta primera fase cubre la captura y el registro del caso, incluida su notificación. El seguimiento y la resolución quedan para una siguiente fase.
+> **Nota:** el dashboard fue publicado utilizando una licencia de prueba de Power BI. Su disponibilidad pública puede cambiar. Este repositorio conserva evidencia visual de los principales productos desarrollados.
 
 ---
 
-## Arquitectura
+## El punto de partida
 
-![Arquitectura conceptual](assets/img/arquitectura_conceptual.png)
+Todo comenzó observando publicaciones sobre la Operación Fuera Chatarra de la AMDC y haciéndome una pregunta:
 
-La lógica **observar → capturar → transformar → analizar → actuar** no depende del tipo de caso. Podría adaptarse a inspecciones, incidencias viales, activos o intervenciones ambientales; cambiarían las preguntas, las variables y las reglas, no el recorrido del dato.
+> **¿Cómo estarán registrando todo esto?**
 
-![Arquitectura técnica](assets/img/arquitectura_tecnica.png)
+No conocía —ni conozco— los sistemas o procedimientos internos utilizados por la institución. Precisamente por eso la pregunta resultaba interesante como ejercicio de diseño.
 
-| Capa | Qué hace |
+¿Se registra la ubicación exacta? ¿La placa? ¿El estado físico del vehículo? ¿Fotografías? ¿La condición de rodaje? ¿La notificación? ¿El plazo otorgado?
+
+Una pregunta comenzó a producir otras.
+
+El ejercicio consistió en convertir esas preguntas en variables, las variables en captura estructurada y los datos resultantes en productos útiles para distintos contextos de trabajo.
+
+La idea central fue sencilla:
+
+> **Capturar una vez. Reutilizar muchas veces.**
+
+Una coordenada registrada en campo no debería volver a digitarse para colocar un punto en un mapa. Una fecha no debería capturarse nuevamente para analizar un plazo. La identificación de un caso no debería reconstruirse para crear un dashboard.
+
+---
+
+## Del vehículo al caso
+
+Durante el desarrollo apareció una distinción que terminó definiendo el proyecto:
+
+> **El vehículo es el objeto observado. El caso es el objeto gestionado.**
+
+Registrar un vehículo no equivale necesariamente a gestionar todo su ciclo.
+
+Conceptualmente, un caso puede recorrer etapas como:
+
+**IDENTIFICAR → REGISTRAR → NOTIFICAR → DAR SEGUIMIENTO → RESOLVER**
+
+La demo actual corresponde a una **Fase 1** y llega hasta la notificación. El seguimiento posterior y la resolución representan una posible evolución del sistema y no forman parte de la implementación actual.
+
+---
+
+## Arquitectura conceptual
+
+![Arquitectura conceptual](assets/img/low_arquitectura_conceptual.jpg)
+
+La solución puede resumirse en cinco capacidades:
+
+**OBSERVAR → CAPTURAR → TRANSFORMAR → ANALIZAR → ACTUAR**
+
+El caso de los vehículos abandonados permitió probar esta lógica sobre un problema concreto, pero la arquitectura no depende exclusivamente de ese objeto.
+
+Podría adaptarse a inspecciones, incidencias viales, infraestructura dañada, activos, luminarias o intervenciones ambientales, entre otros escenarios de trabajo territorial.
+
+Cambiarían las preguntas, las variables y las reglas.
+
+**El caso cambia. La arquitectura permanece.**
+
+---
+
+## Arquitectura técnica
+
+![Arquitectura técnica](assets/img/low_arquitectura_tecnica.jpg)
+
+La demo conecta distintas capacidades dentro de un mismo flujo:
+
+| Capa | Tecnologías y propósito |
 |---|---|
-| Captura | KoboToolbox y KoboCollect (también probado con ODK Collect) |
-| Persistencia y acceso | Servidor de KoboToolbox y acceso por API |
-| Integración, ETL y modelado | Power Query (Excel y Power BI) y un pipeline reproducible en Python, con rutas reconciliadas entre sí; el dashboard publicado consume los datos mediante Power Query |
-| Consumo y distribución | Power BI, Excel, Google Earth, uMap, My Maps, QField, y formatos CSV, XLSX, GeoJSON y KMZ |
-| Usuarios | Supervisión, análisis y personal de campo |
+| Captura | KoboToolbox, KoboCollect y ODK Collect para captura estructurada en campo |
+| Persistencia y acceso | KoboToolbox como origen de los registros y evidencia |
+| Integración y transformación | Power Query y un pipeline ETL reproducible desarrollado en Python |
+| Modelado y analítica | Modelo dimensional y dashboard en Power BI |
+| Geoespacial | Google Earth, uMap, My Maps, QField y Mapas 3D de Excel |
+| Interoperabilidad | Salidas en formatos como CSV, XLSX, GeoJSON y KMZ |
+
+La arquitectura fue diseñada para evitar que cada producto requiera una nueva captura o preparación manual del mismo dato.
 
 ---
 
@@ -53,10 +102,25 @@ La lógica **observar → capturar → transformar → analizar → actuar** no 
 
 ![Formulario en KoboCollect](assets/img/formulario.png)
 
-- Cerca de 50 preguntas con listas controladas y lógica condicional: una respuesta determina qué se pregunta después.
-- Coordenada GPS del vehículo y tres fotografías: vehículo y entorno, placa y sticker de preaviso.
-- Captura sin conexión (offline-first) con KoboCollect: el registro y su coordenada se guardan en el dispositivo y se sincronizan cuando vuelve la conexión.
-- Reduce la digitación libre, pero no la elimina: el error humano al describir algo en campo sigue existiendo. En la demo los nombres del personal se escriben a mano; con códigos de empleado ese riesgo bajaría bastante.
+El instrumento desarrollado para la demo contiene **cerca de 50 campos y preguntas, incluyendo rutas condicionadas**.
+
+Combina:
+
+- listas controladas y captura estructurada;
+- lógica condicional según las respuestas;
+- ubicación mediante GPS;
+- evidencia fotográfica;
+- identificación y condición del vehículo;
+- información asociada a la notificación;
+- operación offline-first.
+
+La lógica condicional permite que el instrumento adapte las preguntas al caso que se está registrando en lugar de presentar un formulario completamente plano.
+
+La operación offline-first permite realizar la captura aun cuando no exista conectividad permanente y sincronizar posteriormente la información.
+
+El objetivo no era construir un formulario largo.
+
+Era **convertir preguntas en variables y variables en datos estructurados**.
 
 ---
 
@@ -64,18 +128,26 @@ La lógica **observar → capturar → transformar → analizar → actuar** no 
 
 ![Modelo dimensional](assets/img/modelo_dimensional.png)
 
-Un hecho (el registro del vehículo) y cinco dimensiones: **Fecha, Vehículo, Estado del vehículo, Ubicación y Personal.** Dos dimensiones cumplen doble rol: la fecha (del evento y de vencimiento del plazo) y el personal (quien registra y jefe de cuadrilla). El modelo está diseñado para detener la actualización si pierde su integridad, por ejemplo si el hecho llegara a duplicar registros.
+Para el análisis se construyó un modelo dimensional compuesto por una tabla de hechos y cinco dimensiones principales:
 
-Incluye 28 medidas organizadas en familias:
+**Fecha · Vehículo · Estado del vehículo · Ubicación · Personal**
 
-| Familia | Qué responde |
-|---|---|
-| Volumen | Registros, vehículos únicos y ubicaciones únicas |
-| Identificación | Vehículos sin placa y su proporción |
-| Condición para la remoción | Vehículos que pueden rodar, inmóviles críticos y solo chasis |
-| Notificación | Sticker colocado y su proporción; promedio de días del plazo otorgado |
-| Evidencia fotográfica | Proporción de registros con foto del vehículo, de la placa y del sticker |
-| Operación y lectura | Registros por jefe de cuadrilla, fecha del último registro, actualización de los datos y fichas de los mapas |
+La fecha y el personal pueden desempeñar más de un rol analítico dentro del modelo, permitiendo observar el mismo registro desde distintas perspectivas.
+
+El modelo incorpora además controles de integridad destinados a detectar inconsistencias que puedan comprometer la estructura esperada de los datos.
+
+Sobre este modelo se desarrollaron **28 medidas** orientadas a responder preguntas sobre:
+
+- volumen de registros y vehículos;
+- identificación;
+- condición para la remoción;
+- notificación;
+- evidencia fotográfica;
+- operación;
+- temporalidad;
+- información contextual para mapas y fichas.
+
+El objetivo del modelo no fue acumular métricas, sino convertir los datos capturados en preguntas que pudieran responderse de manera consistente.
 
 ---
 
@@ -83,18 +155,28 @@ Incluye 28 medidas organizadas en familias:
 
 ![Dashboard en Power BI](assets/img/dashboard.png)
 
-El dashboard no es el sistema; es uno de sus productos. Permite preguntar:
+El dashboard es **uno de los productos del sistema**, no el sistema completo.
 
-- ¿Cuántos vehículos hay registrados y en cuántas colonias?
-- ¿Qué proporción no tiene placa o tiene el sticker de preaviso colocado?
-- ¿Qué categorías, tipos de carrocería, marcas y modelos predominan?
-- ¿En qué condición de rodaje están y qué tan complejo es el entorno para una maniobra de remoción?
+Permite explorar preguntas como:
+
+- ¿Cuántos vehículos y ubicaciones han sido registrados?
+- ¿Qué proporción de los registros corresponde a vehículos sin placa?
+- ¿Qué categorías, tipos, marcas y modelos predominan?
+- ¿En qué condición se encuentran?
+- ¿Qué evidencia acompaña cada registro?
+- ¿Cómo se distribuyen territorialmente los casos?
+
+La información puede filtrarse y explorarse desde diferentes perspectivas sin modificar el dato de origen.
 
 ---
 
-## Productos geoespaciales
+## Una fuente, múltiples productos
 
-No todas las decisiones ocurren frente a un dashboard. Una persona en campo puede necesitar solo saber dónde está el caso y consultar su información. Por eso el mismo dato alimenta distintos productos:
+No todas las decisiones ocurren frente a un dashboard.
+
+Un analista puede necesitar indicadores agregados. Una persona en campo puede necesitar localizar un caso. Otra persona puede requerir revisar evidencia o explorar territorialmente los registros.
+
+Por eso la misma información se utilizó para producir diferentes formas de consumo.
 
 ![uMap, QField y Google Earth](assets/img/mapas_composicion.png)
 
@@ -106,40 +188,133 @@ No todas las decisiones ocurren frente a un dashboard. Una persona en campo pued
 
 | Producto | Uso |
 |---|---|
+| Power BI | Análisis e indicadores |
 | uMap | Consulta web ligera |
-| Google Earth Web y Pro | Exploración territorial con ficha de cada caso |
-| Google My Maps | Compartir y explorar casos de forma sencilla |
-| QField | Consulta de la información en campo, sin conexión |
-| Mapas 3D de Excel | Análisis territorial desde Excel |
-| CSV, XLSX, GeoJSON y KMZ | Formatos abiertos para que el dato siga existiendo fuera de cualquier aplicación |
+| Google Earth Web y Pro | Exploración territorial y fichas de casos |
+| Google My Maps | Exploración y distribución sencilla |
+| QField | Consulta geoespacial en campo y sin conexión |
+| Mapas 3D de Excel | Exploración territorial desde Excel |
+| CSV, XLSX, GeoJSON y KMZ | Interoperabilidad entre distintos entornos de consumo |
+
+La intención fue evitar que la información quedara atrapada en una sola aplicación.
 
 ---
 
 ## Calidad y validación
 
-Las salidas del pipeline se validan de forma independiente: integridad de los archivos mediante huellas SHA-256, contratos de columnas, unicidad de llaves, integridad referencial, coherencia entre capas y recálculo de los indicadores derivados.
+La demo incluye una etapa de validación independiente de las salidas generadas por el proceso de transformación.
 
-En la corrida validada, de **44 comprobaciones: 42 correctas, 1 aviso, 1 no verificable y 0 fallas.**
+Los controles consideran aspectos como integridad de archivos, estructura esperada, llaves, relaciones, coordenadas, fechas y coherencia de determinados indicadores derivados.
 
-El control de calidad también señaló 4 anomalías de captura: registros sin fotografía de la placa o del sticker, que se muestran con una imagen de respaldo, y dos plazos que no coinciden con su fecha de vencimiento. Esas anomalías se corrigen en el formulario, no en el pipeline. Dos reglas de clasificación no fueron ejercitadas por los datos de prueba, así que no están verificadas contra datos reales.
+En la corrida documentada de la demo se ejecutaron **44 comprobaciones**:
 
-La validación comprueba que las salidas cumplan sus propios contratos; no comprueba que lo capturado en campo sea cierto.
+**42 correctas · 1 aviso · 1 no verificable · 0 fallas**
+
+La validación también permitió identificar anomalías procedentes de la captura de prueba, lo que evidencia una distinción importante:
+
+> **Validar que los datos cumplen un contrato no significa afirmar que todo lo observado en campo sea correcto.**
+
+Los controles técnicos pueden detectar determinadas inconsistencias, pero la calidad final también depende del diseño del instrumento y de la calidad de la captura.
 
 ---
 
-## Costo, alcance y límites
+## Innovación frugal
 
-- **Costo:** el costo directo de software fue prácticamente cero, con herramientas gratuitas y formatos abiertos. Cero en software no significa cero en trabajo: detrás hay observación, diseño del instrumento, modelado, integración, reglas de negocio, validación y documentación. La salvedad es la licencia de prueba de Power BI mencionada arriba.
-- **Alcance:** demuestra la viabilidad técnica y conceptual de integrar captura estructurada, GPS, fotografías, integración, analítica y productos geoespaciales en un mismo flujo.
-- **Límites:** no demuestra una implementación institucional. Llevarlo a producción exigiría validar procesos con usuarios reales y resolver seguridad, permisos, gobernanza, privacidad, almacenamiento, escalabilidad, capacitación y soporte.
-- **Imágenes:** algunas fotografías de prueba provienen de publicaciones públicas de la AMDC en redes sociales; pertenecen a sus titulares y se usan solo para ilustrar la demo.
+El costo directo de software utilizado para construir la demo fue prácticamente cero.
+
+Se combinaron herramientas gratuitas, capacidades ya disponibles y formatos interoperables para probar una arquitectura funcional sin partir de una inversión tecnológica elevada.
+
+Eso no significa que la solución tenga costo cero.
+
+Detrás existen horas de observación, diseño del instrumento, modelado, integración, reglas, validación, análisis y documentación.
+
+El proyecto es, en ese sentido, un ejercicio de **innovación frugal aplicada a datos**: comenzar por el problema y utilizar los recursos disponibles para comprobar una idea antes de pensar en una implementación de mayor escala.
+
+---
+
+## Alcance y límites
+
+Esta demo demuestra la **viabilidad técnica y conceptual** de conectar captura estructurada en campo, georreferenciación, evidencia, transformación, modelado, analítica y productos geoespaciales.
+
+No demuestra una implementación institucional en producción.
+
+Una solución de ese tipo requeriría, entre otros aspectos, validar los procesos con usuarios reales y definir políticas de seguridad, permisos, privacidad, gobernanza, almacenamiento, disponibilidad, integración, mantenimiento, capacitación y soporte.
+
+La arquitectura presentada debe entenderse como un **prototipo end-to-end de un sistema de información para la gestión de casos georreferenciados**.
+
+---
+
+## Sobre este repositorio
+
+Este repositorio presenta una selección de la arquitectura, metodología y resultados de una demo funcional desarrollada como proyecto de portafolio.
+
+La implementación completa —incluidos scripts, notebooks, consultas, configuraciones y reglas de transformación— se mantiene reservada y no forma parte de la distribución pública.
+
+El propósito del repositorio es documentar el proyecto y demostrar sus capacidades, decisiones de diseño y resultados, no proporcionar una implementación reproducible.
+
+---
+
+## Herramientas utilizadas
+
+**Captura** · KoboToolbox · KoboCollect · ODK Collect
+
+<p>
+  <img src="assets/img/kobotoolbox.png" width="56" alt="KoboToolbox">
+  <img src="assets/img/kobocollect.png" width="56" alt="KoboCollect">
+  <img src="assets/img/odk.png" width="56" alt="ODK Collect">
+</p>
+
+**Transformación** · Power Query · Python · Jupyter · VS Code
+
+<p>
+  <img src="assets/img/powerquery.png" width="56" alt="Power Query">
+  <img src="assets/img/python.png" width="56" alt="Python">
+  <img src="assets/img/jupyter.png" width="56" alt="Jupyter">
+  <img src="assets/img/vscode.png" width="56" alt="VS Code">
+</p>
+
+**Modelado y análisis** · Power BI · Excel
+
+<p>
+  <img src="assets/img/powerbi.png" width="56" alt="Power BI">
+  <img src="assets/img/excel.png" width="56" alt="Excel">
+</p>
+
+**Geoespacial** · Google Earth · Google My Maps · uMap
+
+<p>
+  <img src="assets/img/googleearth.png" width="56" alt="Google Earth">
+  <img src="assets/img/mymaps.png" width="56" alt="Google My Maps">
+  <img src="assets/img/umap.png" width="56" alt="uMap">
+</p>
+
+**Consulta en campo** · QField
+
+<p>
+  <img src="assets/img/qfield.png" width="56" alt="QField">
+</p>
+
+*Los nombres y logotipos pertenecen a sus respectivos titulares y se muestran solo para identificar las herramientas utilizadas.*
+
+---
+
+## Sobre los datos y las imágenes
+
+Los datos utilizados en la demo son datos de prueba y no corresponden a una base institucional de la AMDC.
+
+Algunas fotografías utilizadas con fines demostrativos provienen de publicaciones públicas de la AMDC en redes sociales. Los derechos sobre esas imágenes corresponden a sus respectivos titulares y su utilización en este proyecto tiene únicamente fines ilustrativos y de portafolio.
 
 ---
 
 ## Autor
 
-**Keny López** — Data Analyst / BI Specialist · Microsoft Fabric Analytics Engineer (DP-700) · Power BI Data Analyst (PL-300)
+**Keny López**  
+Data Analyst / BI Specialist  
+Microsoft Fabric Analytics Engineer (DP-700) · Power BI Data Analyst (PL-300)
 
 [LinkedIn](https://www.linkedin.com/in/kenylopez-data-analyst) · [Portafolio](https://sites.google.com/view/portafolio-keny-lpez/inicio)
 
-© 2026 Keny López. Todos los derechos reservados. Demo con fines de portafolio.
+---
+
+© 2026 Keny López. Todos los derechos reservados.  
+Demo independiente desarrollada con fines de portafolio.
