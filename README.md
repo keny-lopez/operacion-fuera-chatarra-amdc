@@ -16,7 +16,7 @@
 
 | Producto | Qué puedes explorar | Enlace |
 |---|---|---|
-| Video del flujo del dato | El mismo registro en tres momentos y en una sola pantalla: se captura en KoboCollect, se analiza en Power BI y se ubica en Google Earth Pro | [Ver video](https://drive.google.com/file/d/1jfxqEFN6sYoVzvc60F1Sx_paVVLlgk__/view?usp=sharing) |
+| Video del flujo del dato | El mismo registro en tres momentos y en una sola pantalla: se captura en KoboCollect, se analiza en Power BI y se ubica en Google Earth Pro | [Ver video](https://youtu.be/-oNIj2WOGaI) |
 | Dashboard en Power BI | Indicadores, distribución territorial, características de los vehículos, condiciones y evidencia | [Abrir dashboard](https://app.powerbi.com/view?r=eyJrIjoiNTE2NjdjZDAtYmFmOC00MDc5LTk4NjgtM2VmMTYxNGJjZWQzIiwidCI6IjY4ODYzYjAyLTkxMDYtNDU2Yi1iYzFiLTEyNzRkMGZiZGJjYiIsImMiOjZ9) |
 | Google Earth Web | Registros en su contexto territorial y ficha de cada caso | [Abrir mapa](https://earth.google.com/earth/d/1iwjQfTcOWLD_yuXroj5fZIQc-_-XBPuI?usp=sharing) |
 | Video del formulario | Recorrido de un registro mediante KoboCollect | [Ver video](https://drive.google.com/file/d/1p0gcpqKXltXdgJiM3MM62O82WJ2KYA9p/view?usp=sharing) |
